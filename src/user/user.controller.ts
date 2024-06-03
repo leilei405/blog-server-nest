@@ -1,7 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginUserDTO } from './dto/loginuser.dto';
-
+import { AuthGuard } from './user.guard'
 
 @Controller('user')
 export class UserController {
@@ -11,5 +11,14 @@ export class UserController {
     @Post('login')
     async login(@Body() loginUserDTO: LoginUserDTO) {
         return this.userService.findOne(loginUserDTO);
+    }
+
+    // 验证token
+    @UseGuards(AuthGuard)
+    @Get('registed')
+    async tokens(@Request() req) {
+        console.log(req);
+        
+        return req.user;
     }
 }

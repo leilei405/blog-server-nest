@@ -13,6 +13,7 @@ export class UserService {
         private readonly jwtService: JwtService
     ) {}
 
+    // 登录
     async findOne(loginUserDTO: LoginUserDTO) {
         const { password, username } = loginUserDTO;
         const data = await this.userRepository.findOneBy({ username, password });

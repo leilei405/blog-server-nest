@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, Request } from '@nestjs/common';
 import { CreateBlogDto } from './dto/create.dto';
 import { BlogService } from './blog.service';
+import { AuthGuard } from '../user/user.guard';
 
 // ts 装饰器语法  nest 常见的使用方式
 // 设计模式  装饰器模式
@@ -29,9 +30,10 @@ export class BlogController {
     }
 
     // 创建博客
+    @UseGuards(AuthGuard)
     @Post()
-    async create(@Body() createBlogDto: CreateBlogDto) {
-        createBlogDto.author = 'admin';
+    async create(@Body() createBlogDto: CreateBlogDto, @Request() req) {
+        createBlogDto.author = req.user.username;
         const data = await this.blogService.create(createBlogDto);
         return data;
     }
