@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { CreateBlogDto } from './dto/create.dto';
 
 // ts 装饰器语法  nest 常见的使用方式
 // 设计模式  装饰器模式
@@ -22,5 +23,23 @@ export class BlogController {
     async remove(@Param('id') id: string) {
         console.log(id);
         return { id };
+    }
+
+    // 创建
+    @Post() // @Body 收集请求体内容
+    async create(@Body() createBlogDto: CreateBlogDto) {
+        console.log(createBlogDto);
+        
+        return { msg: '创建成功' };
+    }
+
+    // 创建
+    @Patch(":id") // @Body 收集请求体内容
+    async update(
+        @Param("id") id: string,
+        @Body() createBlogDto: CreateBlogDto
+    ) {
+        console.log(id, createBlogDto);
+        return { msg: '更新成功' };
     }
 }
