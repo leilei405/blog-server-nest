@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "blogquestion",
+        "loginuser",
         "nestjs",
+        "realname",
         "typeorm"
     ]
 }
