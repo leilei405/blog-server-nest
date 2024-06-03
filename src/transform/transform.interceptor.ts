@@ -8,8 +8,7 @@ export class TransformInterceptor implements NestInterceptor {
       map(data => {
         return {
           code: 0,
-          data: data.data,
-          msg: data.msg,
+          data: data,
         };
       })
     );
